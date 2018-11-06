@@ -8,51 +8,50 @@ export default class MyForm extends Component {
     number: 'Two'
   }
 
-  handleChange = (e, fieldName, isCheckbox) => {
-    console.log(fieldName)
+  handleChange = e => {
+    const isCheckbox = e.target.type === 'checkbox'
+    console.log(isCheckbox)
     this.setState({
-      [fieldName]: isCheckbox ? e.target.checked : e.target.value
+      [e.target.name]: isCheckbox ? e.target.checked : e.target.value
     })
   }
 
-  handleSubmit = () => {
+  handleSubmit = e => {
+    e.preventDefault()
     console.log(this.state)
   }
   render () {
     return (
-      <div>
+      <form onSubmit={this.handleSubmit}>
         <input
+          name='name'
           value={this.state.name}
-          onChange={e => this.handleChange(e, 'name')}
+          onChange={this.handleChange}
         />
         <textarea
+          name='favPet'
           value={this.state.favPet}
-          onChange={e => this.handleChange(e, 'favPet')}
+          onChange={this.handleChange}
         />
         <input
+          name='remMe'
           type='checkbox'
-          onChange={e => this.handleChange(e, 'remMe', true)}
+          onClick={e => this.handleChange}
           checked={this.state.remMe}
         />
         <select
+          name='number'
           value={this.state.number}
-          onChange={e => this.handleChange(e, 'number')}
+          onChange={this.handleChange}
         >
-          <option>
-            One
-          </option>
-          <option>
-            Two
-          </option>
-          <option>
-            Three
-          </option>
+          <option>One</option>
+          <option>Two</option>
+          <option>Three</option>
         </select>
-
         <div>
-          <button onClick={this.handleSubmit}>Submit!</button>
+          <button type='submit'>Submit!</button>
         </div>
-      </div>
+      </form>
     )
   }
 }
