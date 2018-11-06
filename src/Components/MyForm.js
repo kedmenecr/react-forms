@@ -8,44 +8,36 @@ export default class MyForm extends Component {
     number: 'Two'
   }
 
-  handleChange = e => {
+  handleChange = (e, fieldName) => {
+    console.log(fieldName)
     this.setState({
-      name: e.target.value
-    })
-  }
-
-  handleChangePet = e => {
-    this.setState({
-      favPet: e.target.value
-    })
-  }
-  handleChangeCheck = e => {
-    this.setState({
-      remMe: e.target.checked
-    })
-  }
-
-  handleSelect = e => {
-    this.setState({
-      number: e.target.value
+      [fieldName]: "checkbox" ? e.target.checked : e.target.value
     })
   }
 
   handleSubmit = () => {
     console.log(this.state)
   }
-
   render () {
     return (
       <div>
-        <input value={this.state.name} onChange={this.handleChange} />
-        <textarea value={this.state.favPet} onChange={this.handleChangePet} />
+        <input
+          value={this.state.name}
+          onChange={e => this.handleChange(e, 'name')}
+        />
+        <textarea
+          value={this.state.favPet}
+          onChange={e => this.handleChange(e, 'favPet')}
+        />
         <input
           type='checkbox'
-          onChange={this.handleChangeCheck}
+          onChange={e => this.handleChange(e, 'remMe')}
           checked={this.state.remMe}
         />
-        <select value={this.state.number} onChange={this.handleSelect}>
+        <select
+          value={this.state.number}
+          onChange={e => this.handleChange(e, 'number')}
+        >
           <option>
             One
           </option>
