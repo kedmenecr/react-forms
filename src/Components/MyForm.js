@@ -8,10 +8,10 @@ export default class MyForm extends Component {
     number: 'Two'
   }
 
-  handleChange = (e, fieldName) => {
+  handleChange = (e, fieldName, isCheckbox) => {
     console.log(fieldName)
     this.setState({
-      [fieldName]: "checkbox" ? e.target.checked : e.target.value
+      [fieldName]: isCheckbox ? e.target.checked : e.target.value
     })
   }
 
@@ -31,7 +31,7 @@ export default class MyForm extends Component {
         />
         <input
           type='checkbox'
-          onChange={e => this.handleChange(e, 'remMe')}
+          onChange={e => this.handleChange(e, 'remMe', true)}
           checked={this.state.remMe}
         />
         <select
